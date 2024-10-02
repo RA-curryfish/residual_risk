@@ -57,21 +57,24 @@ Assume that we choose the subject ```freetype2-2017``` and the trial number ```1
 ```
 git clone https://github.com/google/fuzzbench
 cd fuzzbench
-git checkout 7b92df520aa9794fc483441e90db1c725859e5a3
+// Don't do this due to version conflicts -----> git checkout 7b92df520aa9794fc483441e90db1c725859e5a3
+// Instead, go to that commit, download the "entropic" fuzzer folder and place it under fuzzers/
+// You also might need to change the docker file in entropic to match the other fuzzers due to the new workflow of fuzzbench
 git submodule update --init
-git apply --ignore-whitespace fuzzbench.diff # Adds the diff to the code
+git apply --ignore-whitespace /path/to/fuzzbench.diff # Adds the diff to the code
 sudo apt-get install build-essential
 sudo apt-get install python3-dev python3-venv
 make install-dependencies
 
 source .venv/bin/activate
-sudo make run-entropic-freetype2-2017 > freetype2-2017.1.csv
+sudo make run-entropic-subject > subject.1.csv
 ```
 To see the progress of the campaign, run the below command in a seperate terminal.
 
 ```
 tail -f freetype2-2017.1.csv
 ```
+There will be occasional logs of the values in between fuzzer output logs
 
 ## Kaggle Notebooks
 
